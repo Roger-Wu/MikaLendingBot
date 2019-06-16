@@ -115,7 +115,8 @@ class Logger(object):
 
     def offer(self, amt, cur, rate, days, msg):
         line = self.timestamp() + ' Placing ' + str(amt) + ' ' + str(cur) + ' at ' + str(
-            float(rate) * 100) + '% for ' + days + ' days... ' + self.digestApiMsg(msg)
+            float(rate) * 100) + '% or APR ' + str(
+            float(rate) * 365 * 100) + '% for ' + days + ' days... ' + self.digestApiMsg(msg)
         self.output.printline(line)
         self.refreshStatus()
 

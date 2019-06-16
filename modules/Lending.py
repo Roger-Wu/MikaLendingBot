@@ -167,7 +167,7 @@ def get_min_loan_size(currency):
 def create_lend_offer(currency, amt, rate):
     days = '2'
     if float(rate) > 0.0001:
-        rate = float(rate) - 0.000001  # lend offer just bellow the competing one
+        rate = float(rate) - 0.0000001  # lend offer just bellow the competing one
     amt = "%.8f" % Decimal(amt)
     if xday_threshold > 0:
         if float(rate) >= xday_threshold:
