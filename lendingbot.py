@@ -109,7 +109,7 @@ try:
             dns_cache = {}  # Flush DNS Cache
             Data.update_conversion_rates(output_currency, json_output_enabled)
             PluginsManager.before_lending()
-            Lending.transfer_balances()
+            # Lending.transfer_balances()
             Lending.cancel_all()
             Lending.lend_all()
             PluginsManager.after_lending()
