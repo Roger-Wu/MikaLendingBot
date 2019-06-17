@@ -73,7 +73,7 @@ def stringify_total_lent(total_lent, rate_lent):
     result = 'Lent: '
     for key in sorted(total_lent):
         average_lending_rate = Decimal(rate_lent[key] * 100 / total_lent[key])
-        result += '[%.4f %s @ %.4f%%] ' % (Decimal(total_lent[key]), key, average_lending_rate)
+        result += '[%.4f %s @ %.6f%% or APR %.4f%%] ' % (Decimal(total_lent[key]), key, average_lending_rate, average_lending_rate * 365)
         log.updateStatusValue(key, "lentSum", total_lent[key])
         log.updateStatusValue(key, "averageLendingRate", average_lending_rate)
     return result
