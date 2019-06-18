@@ -206,32 +206,32 @@ def create_lend_offer(currency, amt, rate):
 
 def cancel_all():
     loan_offers = api.return_open_loan_offers()
-    # available_balances = api.return_available_account_balances('lending')
-    # for CUR in loan_offers:
-    #     if CUR in coin_cfg and coin_cfg[CUR]['maxactive'] == 0:
-    #         # don't cancel disabled coin
-    #         continue
-    #     if keep_stuck_orders:
-    #         lending_balances = available_balances['lending']
-    #         if isinstance(lending_balances, dict) and CUR in lending_balances:
-    #             cur_sum = float(available_balances['lending'][CUR])
-    #         else:
-    #             cur_sum = 0
-    #         for offer in loan_offers[CUR]:
-    #             cur_sum += float(offer['amount'])
-    #     else:
-    #         cur_sum = float(get_min_loan_size(CUR)) + 1
-    #     if cur_sum >= float(get_min_loan_size(CUR)):
-    #         for offer in loan_offers[CUR]:
-    #             if not dry_run:
-    #                 try:
-    #                     msg = api.cancel_loan_offer(CUR, offer['id'])
-    #                     log.cancelOrder(CUR, msg)
-    #                 except Exception as ex:
-    #                     ex.message = ex.message if ex.message else str(ex)
-    #                     log.log("Error canceling loan offer: {0}".format(ex.message))
-    #     else:
-    #         print "Not enough " + CUR + " to lend if bot canceled open orders. Not cancelling."
+    available_balances = api.return_available_account_balances('lending')
+    for CUR in loan_offers:
+        if CUR in coin_cfg and coin_cfg[CUR]['maxactive'] == 0:
+            # don't cancel disabled coin
+            continue
+        if keep_stuck_orders:
+            lending_balances = available_balances['lending']
+            if isinstance(lending_balances, dict) and CUR in lending_balances:
+                cur_sum = float(available_balances['lending'][CUR])
+            else:
+                cur_sum = 0
+            for offer in loan_offers[CUR]:
+                cur_sum += float(offer['amount'])
+        else:
+            cur_sum = float(get_min_loan_size(CUR)) + 1
+        if cur_sum >= float(get_min_loan_size(CUR)):
+            for offer in loan_offers[CUR]:
+                if not dry_run:
+                    try:
+                        msg = api.cancel_loan_offer(CUR, offer['id'])
+                        log.cancelOrder(CUR, msg)
+                    except Exception as ex:
+                        ex.message = ex.message if ex.message else str(ex)
+                        log.log("Error canceling loan offer: {0}".format(ex.message))
+        else:
+            print "Not enough " + CUR + " to lend if bot canceled open orders. Not cancelling."
 
 
 def lend_all():
